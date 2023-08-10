@@ -1,0 +1,4 @@
+.env
+.vscode/*
+db/*
+code_data.json

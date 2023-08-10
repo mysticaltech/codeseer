@@ -1,0 +1,21 @@
+[tool.poetry]
+authors = ["Karim Naufal <rimkashox@gmail.com>"]
+description = "Chat with Python code"
+license = "MIT"
+name = "codeseer"
+readme = "README.md"
+version = "0.0.1"
+
+[tool.poetry.dependencies]
+chromadb = "*" 
+langchain = "*" 
+openai = "*" 
+python = "^3.11" # Don't upgrade Python version automatically. It may cause major incompatibility issues.
+python-dotenv = "*" 
+tiktoken = "*" 
+lark = "^1.1.5"
+rich = "^13.4.2"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
