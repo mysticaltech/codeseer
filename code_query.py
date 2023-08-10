@@ -16,7 +16,7 @@ load_dotenv()
 ef = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
 
 db = Chroma(
-    collection_name="code_snippets",
+    collection_name=os.getenv("COLLECTION_NAME"),
     persist_directory="db",
     embedding_function=ef,
 )
@@ -28,13 +28,11 @@ llm = ChatOpenAI(
 
 retriever = db.as_retriever()
 
-chain = RetrievalQA.from_chain_type(
-    llm, chain_type="stuff", retriever=retriever
-)
+chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=retriever)
 
 results = chain(
     {
-        "query": "I want to change the bayesian prior, how do I do that with gbstats?"
+        "query": "I want to calculate frequentist conversion rate stats, how do I do that with gbstats?",
     }
 )
 

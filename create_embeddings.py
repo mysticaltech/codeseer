@@ -20,7 +20,9 @@ ef = embedding_functions.OpenAIEmbeddingFunction(
 client = PersistentClient(path="db")
 
 # Create a collection to store the data
-collection = client.create_collection("code_snippets", embedding_function=ef)
+collection = client.create_collection(
+    os.getenv("COLLECTION_NAME"), embedding_function=ef
+)
 
 # Loop through each data point
 for idx, d in enumerate(data):

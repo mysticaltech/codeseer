@@ -2,6 +2,10 @@ import ast
 import os
 import json
 import tiktoken
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 class CodeVisitor(ast.NodeVisitor):
@@ -21,9 +25,7 @@ class CodeVisitor(ast.NodeVisitor):
         code_lines = self.source_lines[start_line : end_line + 1]
         code = "".join(code_lines).strip()
 
-        decorators = [
-            d.id for d in node.decorator_list if isinstance(d, ast.Name)
-        ]
+        decorators = [d.id for d in node.decorator_list if isinstance(d, ast.Name)]
         args = [arg.arg for arg in node.args.args]
         code_info = {
             "type": "function",
@@ -35,9 +37,7 @@ class CodeVisitor(ast.NodeVisitor):
             "start_line": start_line + 1,
             "end_line": end_line + 1,
             "start_col": node.col_offset,
-            "end_col": node.end_col_offset
-            if hasattr(node, "end_col_offset")
-            else None,
+            "end_col": node.end_col_offset if hasattr(node, "end_col_offset") else None,
         }
         self.code_data.append(code_info)
         for child_node in ast.iter_child_nodes(node):
@@ -54,9 +54,7 @@ class CodeVisitor(ast.NodeVisitor):
         code_lines = self.source_lines[start_line : end_line + 1]
         code = "".join(code_lines).strip()
 
-        decorators = [
-            d.id for d in node.decorator_list if isinstance(d, ast.Name)
-        ]
+        decorators = [d.id for d in node.decorator_list if isinstance(d, ast.Name)]
         bases = [base.id for base in node.bases if isinstance(base, ast.Name)]
         code_info = {
             "type": "class",
@@ -68,9 +66,7 @@ class CodeVisitor(ast.NodeVisitor):
             "start_line": start_line + 1,
             "end_line": end_line + 1,
             "start_col": node.col_offset,
-            "end_col": node.end_col_offset
-            if hasattr(node, "end_col_offset")
-            else None,
+            "end_col": node.end_col_offset if hasattr(node, "end_col_offset") else None,
         }
         self.code_data.append(code_info)
         for child_node in ast.iter_child_nodes(node):
@@ -82,9 +78,7 @@ class CodeVisitor(ast.NodeVisitor):
             if isinstance(target, ast.Name):
                 start_line = node.lineno - 1
                 end_line = (
-                    node.end_lineno
-                    if hasattr(node, "end_lineno")
-                    else start_line
+                    node.end_lineno if hasattr(node, "end_lineno") else start_line
                 )
                 code_lines = self.source_lines[start_line : end_line + 1]
                 code = "".join(code_lines).strip()
