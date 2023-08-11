@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 import langchain
 import os
 from rich import print as rprint
+import sys
 
 langchain.debug = True
 
@@ -30,9 +31,16 @@ retriever = db.as_retriever()
 
 chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=retriever)
 
+
+query = (
+    sys.argv[1]
+    if len(sys.argv) > 1
+    else "How to modify the max_tokens parameter in the continue codebase?"
+)
+
 results = chain(
     {
-        "query": "I want to calculate frequentist conversion rate stats, how do I do that with gbstats?",
+        "query": query,
     }
 )
 

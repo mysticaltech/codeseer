@@ -129,7 +129,10 @@ def get_python_files(directory):
 def estimate_tokens(code_snippet):
     # Get the tokenizer for GPT-4
     tokenizer = tiktoken.encoding_for_model("gpt-4")
-    tokens = tokenizer.encode(code_snippet)
+    tokens = tokenizer.encode(
+        code_snippet,
+        allowed_special={"<|endoftext|>"},
+    )
     return len(tokens)
 
 
