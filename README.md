@@ -27,6 +27,12 @@ This script creates a local Chroma vector database. It fetches the embedding for
 
 This script allows you to query your code semantically. You can search for relevant methods, classes, and variables, and it will return the results to feed the context of LLMs.
 
+To use this script, you need to pass your query as an argument when running the file. For instance:
+
+```bash
+python code_query.py "How to calculate confidence with this project"
+```
+
 ## Usage
 
 1. **Set Up Environment Variables:** Copy `.env.example` to `.env` and fill in the required information.
